@@ -73,7 +73,6 @@ describe('SSH Connection pool', function () {
     });
 
     it('should run command on each connection', function (done) {
-
       pool.copy('/src/dir', '/dest/dir', function (err, results) {
         if (err) return done(err);
 
@@ -82,12 +81,12 @@ describe('SSH Connection pool', function () {
 
         expect(childProcess.exec).to.be.calledWith(
           'rsync -az -e "ssh " /src/dir deploy@myserver:/dest/dir',
-          {maxBuffer: 1000 * 1024, rsync: []}
+          {maxBuffer: 1000 * 1024}
         );
 
         expect(childProcess.exec).to.be.calledWith(
           'rsync -az -e "ssh " /src/dir deploy@myserver2:/dest/dir',
-          {maxBuffer: 1000 * 1024, rsync: []}
+          {maxBuffer: 1000 * 1024}
         );
 
         done();

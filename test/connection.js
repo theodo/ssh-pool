@@ -75,8 +75,8 @@ describe('SSH Connection', function () {
       });
     });
 
-    it('should handle sudo', function (done) {
-      connection.run('sudo my-command -x', {cwd: '/root'}, done);
+    it('should support sshArgs', function () {
+      connection.run('sudo my-command -x', {cwd: '/root', sshArgs: '-tt'});
 
       expect(childProcess.exec).to.be.calledWith(
         'ssh -tt user@host "sudo my-command -x"',

@@ -80,6 +80,7 @@ Run a command on the remote server, you can specify custom `childProcess.exec` o
 ```
 @param {string} command Command
 @param {object} [options] Exec options
+@param {string|string[]} [options.ssh] SSH arguments
 @param {function} [cb] Callback
 @returns {Promise}
 ```
@@ -97,12 +98,17 @@ connection.run('ls', {env: {NODE_ENV: 'test'}})
 
 Copy a file or a directory to a remote server, you can specify custom `childProcess.exec` options. A callback or a promise can be used.
 
+The direction option can be "remoteToLocal" or "localToRemote".
+
 **Arguments:**
 
 ```
 @param {string} src Source
 @param {string} dest Destination
 @param {object} [options] Exec Options
+@param {string} [options.direction] Direction of copy
+@param {string|string[]} [options.ssh] SSH arguments
+@param {string|string[]} [options.rsync] Rsync arguments
 @param {function} [cb] Callback
 @returns {Promise}
 ```
@@ -141,6 +147,7 @@ Same as `connection.run`, except that the command is executed in parallel on eac
 ```
 @param {string} command Command
 @param {object} [options] Options
+@param {string|string[]} [options.ssh] SSH arguments
 @param {function} [cb] Callback
 @returns {Promise}
 ```
@@ -156,12 +163,6 @@ pool.run('hostname')
 
 Same as `connection.copy`, except that the copy is done in parallel on each server of the pool.
 
-**Options:**
-
-```
-@param {object} [options.direction] Direction of copy
-```
-
 Also all exec options are supported.
 
 **Arguments:**
@@ -169,7 +170,10 @@ Also all exec options are supported.
 ```
 @param {string} src Source
 @param {string} dest Destination
-@param {object} options Options
+@param {object} [options] Options
+@param {string} [options.direction] Direction of copy
+@param {string|string[]} [options.ssh] SSH arguments
+@param {string|string[]} [options.rsync] Rsync arguments
 @param {function} [cb] Callback
 @returns {Promise}
 ```
